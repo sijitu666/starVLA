@@ -5,7 +5,6 @@
       "results",
       ".vscode",
       ".git",
-      "playground",
       "scripts/debug",
       "eval/debug_logs",
       "playground",
@@ -14,8 +13,6 @@
       "example",
       "deployment"
     ],
-    "typeCheckingMode": "off",
-    "remote.downloadExtensionsLocally": true,
-    "workbench.web.useServiceWorkers": false
+    "typeCheckingMode": "off"
   }
   

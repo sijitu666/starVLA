@@ -215,3 +215,6 @@ assets/SAMv2.txt
 playground/*
 qwen_talk.md
 assets/R1Pro.py
+
+ckpt
+results

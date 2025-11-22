@@ -1,5 +1,5 @@
-your_ckpt=./results/Checkpoints/1003_qwenoft/final_model/pytorch_model.pt
-sim_python=~/Envs/miniconda3/envs/starVLA/bin/python
+your_ckpt=/home/zhiwei/robotics/v2a/starVLA/StarVLA/Qwen3VL-GR00T-Bridge-RT-1/checkpoints/steps_20000_pytorch_model.pt
+sim_python=/mnt/conda/zhiwei/miniconda3/envs/starVLA/bin/python
 port=5678
 # DEBUG=true
 

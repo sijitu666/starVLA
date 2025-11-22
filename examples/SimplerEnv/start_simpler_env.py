@@ -36,6 +36,7 @@ if __name__ == "__main__":
         policy_ckpt_path=args.ckpt_path, # to get unnormalization stats
         policy_setup=args.policy_setup,
         port=args.port,
+        host=args.host,
         action_scale=args.action_scale,
         cfg_scale=1.5                  # cfg from 1.5 to 7 also performs well
     )

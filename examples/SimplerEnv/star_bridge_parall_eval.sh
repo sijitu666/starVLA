@@ -3,9 +3,9 @@
 echo `which python`
 # Define environment
 cd .
-export star_vla_python=~/miniconda3/envs/starvla/bin/python
-export sim_python=~/miniconda3/envs/dinoact/bin/python
-export SimplerEnv_PATH=~/Projects/SimplerEnv
+export star_vla_python=/mnt/conda/zhiwei/miniconda3/envs/starVLA/bin/python
+export sim_python=/mnt/conda/zhiwei/miniconda3/envs/simpler_env/bin/python
+export SimplerEnv_PATH=/home/zhiwei/robotics/v2a/SimplerEnv
 export PYTHONPATH=$(pwd):${PYTHONPATH}
 base_port=10097
 

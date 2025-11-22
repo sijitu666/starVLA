@@ -164,7 +164,7 @@ conda activate starVLA
 pip install -r requirements.txt
 
 # Install FlashAttention2
-pip install flash-attn --no-build-isolation
+pip install flash-attn --no-build-isolation # (whl选择下载abiFALSE版本)
 
 # Install starVLA
 pip install -e .

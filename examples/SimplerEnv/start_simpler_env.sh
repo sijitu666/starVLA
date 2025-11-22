@@ -2,13 +2,29 @@
 
 echo `which python`
 
-export SimplerEnv_PATH=~/Projects/SimplerEnv
-export PYTHONPATH=~/Envs/miniconda3/envs/dinoact:${PYTHONPATH}
+export SimplerEnv_PATH=/home/zhiwei/robotics/v2a/SimplerEnv
+export PYTHONPATH=/mnt/conda/zhiwei/miniconda3/envs/simpler_env:${PYTHONPATH}
 export PYTHONPATH=$(pwd):${PYTHONPATH}
+export CUDA_VISIBLE_DEVICES=2
 
-MODEL_PATH=./results/Checkpoints/1003_qwenoft/checkpoints/steps_100000_pytorch_model.pt
+
+# 无显示渲染：强制使用 EGL
+export DISPLAY=
+export SAPIEN_RENDER_SYSTEM=egl
+export PYOPENGL_PLATFORM=egl
+export MUJOCO_GL=egl
+# 如多卡且需要选择 EGL 设备，可指定（与 CUDA_VISIBLE_DEVICES 保持一致）
+export EGL_DEVICE_ID=2
+
+
+MODEL_PATH=/home/zhiwei/robotics/v2a/starVLA/StarVLA/Qwen3VL-GR00T-Bridge-RT-1/checkpoints/steps_20000_pytorch_model.pt
 # MODEL_PATH=$1
 ckpt_path=${MODEL_PATH}
+ckpt_dir="$(dirname "${ckpt_path}")"
+ckpt_name="$(basename "${ckpt_path%.*}")"
+# 单机评测日志目录（带 single_task 标识，避免与并行评测混淆）
+LOG_DIR="${ckpt_dir}/single_task_eval_logs"
+mkdir -p "${LOG_DIR}"
 TSET_NUM=1
 # DEBUG=1
 
@@ -57,6 +73,8 @@ for i in "${!ENV_NAMES[@]}"; do
       --obj-episode-range 0 24 \
       --robot-init-rot-quat-center 0 0 0 1 \
       --robot-init-rot-rpy-range 0 0 1 0 0 1 0 0 1 \
+      --logging-dir "${LOG_DIR}" \
+      2>&1 | tee "${LOG_DIR}/${ckpt_name}_single_task_${env}.run${run_idx}.log"
 
   done
 done

@@ -48,6 +48,10 @@ DATASET_NAMED_MIXTURES = {
         ("sim_pick_place", 1.0, "demo_sim_franka_delta_joints"),
     ],
 
+    "pushcube": [
+        ("pushcube_lerobot", 1.0, "pushcube_joints"),
+    ],
+
     "custom_dataset": [
         ("custom_dataset_name", 1.0, "custom_robot_config"),
     ],

@@ -1,0 +1,35 @@
+{
+  "state": {
+    "joints": {
+      "start": 0,
+      "end": 7,
+      "original_key": "observation.state"
+    },
+    "gripper_width": {
+      "start": 7,
+      "end": 9,
+      "original_key": "observation.state"
+    }
+  },
+
+  "action": {
+    "pd_ee_delta_pose": {
+      "start": 0,
+      "end": 7,
+      "absolute": true,
+      "original_key": "action"
+    }
+  },
+
+  "video": {
+    "base_view": {
+      "original_key": "observation.images.base_camera"
+    }
+  },
+
+  "annotation": {
+    "human.action.task_description": {
+      "original_key": "task_index"
+    }
+  }
+}

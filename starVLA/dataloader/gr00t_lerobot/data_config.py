@@ -590,6 +590,71 @@ class SingleFrankaRobotiqDeltaJointsDataConfig:
         return ComposedModalityTransform(transforms=transforms)
 
 
+class PushcubeJointsDataConfig:
+    video_keys = [
+        "video.base_view",
+    ]
+    state_keys = [
+        "state.joints",
+        "state.gripper_width",
+    ]
+    action_keys = [
+        "action.pd_ee_delta_pose",
+    ]
+
+    language_keys = ["annotation.human.action.task_description"]
+    observation_indices = [0]
+    action_indices = list(range(16))
+
+    def modality_config(self):
+        video_modality = ModalityConfig(
+            delta_indices=self.observation_indices,
+            modality_keys=self.video_keys,
+        )
+        state_modality = ModalityConfig(
+            delta_indices=self.observation_indices,
+            modality_keys=self.state_keys,
+        )
+        action_modality = ModalityConfig(
+            delta_indices=self.action_indices,
+            modality_keys=self.action_keys,
+        )
+        language_modality = ModalityConfig(
+            delta_indices=self.observation_indices,
+            modality_keys=self.language_keys,
+        )
+        modality_configs = {
+            "video": video_modality,
+            "state": state_modality,
+            "action": action_modality,
+            "language": language_modality,
+        }
+        return modality_configs
+
+    def transform(self):
+        transforms = [
+            # state：joints(7) + gripper_width(2)
+            StateActionToTensor(apply_to=self.state_keys),
+            StateActionTransform(
+                apply_to=self.state_keys,
+                normalization_modes={
+                    "state.joints": "min_max",
+                    "state.gripper_width": "min_max",
+                },
+            ),
+            # action：joints(7)
+            StateActionToTensor(apply_to=self.action_keys),
+            StateActionTransform(
+                apply_to=self.action_keys,
+                normalization_modes={
+                    "action.pd_ee_delta_pose": "min_max",
+                },
+            ),
+        ]
+
+        return ComposedModalityTransform(transforms=transforms)
+
+
 ###########################################################################################
 
 
@@ -600,5 +665,6 @@ ROBOT_TYPE_CONFIG_MAP = {
     "oxe_bridge": OxeBridgeDataConfig(),
     "oxe_rt1": OxeRT1DataConfig(),
     "demo_sim_franka_delta_joints": SingleFrankaRobotiqDeltaJointsDataConfig(),
-    "custom_robot_config": SingleFrankaRobotiqDeltaEefDataConfig()
+    "custom_robot_config": SingleFrankaRobotiqDeltaEefDataConfig(),
+    "pushcube_joints": PushcubeJointsDataConfig(),
 }
